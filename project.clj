@@ -1,19 +1,20 @@
 (defproject simplecomponent "0.1.0-SNAPSHOT"
-  :description "FIXME: write this!"
+  :description "d3 demo"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :dependencies [[org.clojure/clojure "1.7.0"]
-                 [org.clojure/clojurescript "1.7.170"]
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [org.clojure/clojurescript "1.8.51"]
                  [org.clojure/core.async "0.2.374"]
-                 [reagent "0.5.0"]
+                 [reagent "0.5.1"]
                  [re-frame "0.6.0"]
                  [cljsjs/d3 "3.5.7-1"]
                  ]
 
-  :plugins [[lein-cljsbuild "1.1.1"]
-            [lein-figwheel "0.5.0-1"]]
+  :plugins  [[lein-figwheel "0.5.4-3"]
+             [lein-cljsbuild "1.1.3" :exclusions [[org.clojure/clojure]]]]
+
 
   :source-paths ["src"]
 
@@ -69,4 +70,23 @@
 
              ;; to configure a different figwheel logfile path
              ;; :server-logfile "tmp/logs/figwheel-logfile.log"
-             })
+             }
+
+
+
+  :profiles {:dev {:dependencies [[figwheel-sidecar "0.5.4-3"]
+                                  [com.cemerick/piggieback "0.2.1"]]
+                   ;; need to add dev source path here to get user.clj loaded
+                   :source-paths ["src" "dev"]
+                   ;; for CIDER
+                   ;; :plugins [[cider/cider-nrepl "0.12.0"]]
+                   :repl-options {; for nREPL dev you really need to limit output
+                                  :init (set! *print-length* 50)
+                                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}}
+
+
+
+
+
+
+)
